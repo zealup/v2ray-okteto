@@ -4,7 +4,18 @@ FROM golang:alpine AS builder
 # 修改源
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 # 安装相关环境依赖
-RUN apk update && apk add --no-cache git bash wget curl
+RUN apk update && apk add --no-cache git bash wget curl lsb-release iptables iproute2 openresolv dnsutils wireguard-tools
+RUN wget https://cdn.jsdelivr.net/gh/jiaosir-cn/EUserv_Add_Ipv4/wgcf_reg/wgcf_2.2.3_linux_amd64 -O /usr/local/bin/wgcf
+RUN wget https://cdn.jsdelivr.net/gh/jiaosir-cn/EUserv_Add_Ipv4/Down_wireguard-go/wireguard-go -O /usr/bin/wireguard-go
+RUN chmod +x /usr/local/bin/wgcf
+RUN chmod +x /usr/bin/wireguard-go
+RUN wgcf register
+RUN wgcf generate
+RUN sed -i '/0\.0\.0\.0\/0/d' wgcf-profile.conf
+RUN mkdir -p /etc/wireguard
+RUN cp wgcf-profile.conf /etc/wireguard/wgcf.conf
+RUN wg-quick up wgcf
+
 # 运行工作目录
 WORKDIR /go/src/v2ray.com/core
 # 克隆源码运行安装
