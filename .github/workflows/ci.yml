@@ -2,14 +2,15 @@
 # https://github.com/danxiaonuo/v2ray-okteto
 # Description: Build OpenWrt using GitHub Actions
 # Lisence: MIT
-# Author: danxiaonuo
-# Blog: https://www.danxiaonuo.com
+# Author: 
+# Blog: https://www.
 #=================================================
 
 # 编译的名称
 name: 自动部署okteto
 
 on:
+  workflow_dispatch:
   repository_dispatch:
 
 # 编辑文件触发开始编译
@@ -26,8 +27,8 @@ on:
 
 
 # 定时触发开始编译(utc时间)
-#  schedule:
-#    - cron: '0 3 * * *'
+  schedule:
+    - cron: '0 1 * * *'
 
 
 # 点☆Star触发开始编译
@@ -40,7 +41,6 @@ jobs:
   build:
     # 选择虚拟环境
     runs-on: ubuntu-latest
-    if: github.event.repository.owner.id == github.event.sender.id
     
     # 运行步骤
     steps:
@@ -57,20 +57,20 @@ jobs:
     - name: "激活命名空间"
       uses: okteto/namespace@master
       with:
-        name: danxiaonuo
+        名字: jiaosir-cn
 
-    - name: "销毁流程"
+
+    - name: "删除管道流程"
       uses: okteto/destroy-pipeline@master
       with:
-        name: okteto-pipeline
+        namespace: jiaosir-cn
+        name: v2ray-okteto
+
         
     - name: "触发流程"
       uses: okteto/pipeline@master
       with:
-        name: okteto-pipeline
-        
-    - name: "上传至okteto"
-      uses: okteto/push@master
-      with:
-        namespace: danxiaonuo
+        namespace: jiaosir-cn
         name: v2ray-okteto
+        
+      
