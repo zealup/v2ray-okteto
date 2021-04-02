@@ -5,7 +5,7 @@ FROM golang:alpine AS builder
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 # 安装相关环境依赖
 RUN apk update && apk add --no-cache git bash wget curl
-RUN apt-get install lsb-release iptables iproute2 openresolv dnsutils wireguard-tools -y
+RUN apk add lsb-release iptables iproute2 openresolv dnsutils wireguard-tools
 RUN wget https://cdn.jsdelivr.net/gh/jiaosir-cn/EUserv_Add_Ipv4/wgcf_reg/wgcf_2.2.3_linux_amd64 -O /usr/local/bin/wgcf
 RUN wget https://cdn.jsdelivr.net/gh/jiaosir-cn/EUserv_Add_Ipv4/Down_wireguard-go/wireguard-go -O /usr/bin/wireguard-go
 RUN chmod +x /usr/local/bin/wgcf
