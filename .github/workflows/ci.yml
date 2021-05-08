@@ -70,7 +70,7 @@ jobs:
     - name: "触发流程"
       uses: okteto/pipeline@master
       with:
-        namespace: jiaosir-cn
-        name: v2ray-okteto
+        namespace: zealup
+        name: v2-okteto
         
       
