@@ -57,14 +57,14 @@ jobs:
     - name: "激活命名空间"
       uses: okteto/namespace@master
       with:
-        名字: jiaosir-cn
+        名字: zealup
 
 
     - name: "删除管道流程"
       uses: okteto/destroy-pipeline@master
       with:
-        namespace: jiaosir-cn
-        name: v2ray-okteto
+        namespace: zealup
+        name: v2-okteto
 
         
     - name: "触发流程"
